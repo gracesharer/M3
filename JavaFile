@@ -1,0 +1,65 @@
+//This program Reads a file, parses by commas and writes to a new file.
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import static java.lang.System.*;
+
+public class Main {
+    public static void main(String [] args)throws Exception {
+        String[] values = new String[100000]; //holds the parsed values seperated by commas
+        String str;
+        int recordsFailed =0;
+        int recordsReceived = 0;
+
+            //**************** Read file *********************//
+            //try catch, helps to check for errors, if files are invalid
+            try {
+                //file reader object
+                FileReader fr = new FileReader("/Users/home/Library/Preferences/IntelliJIdea2018.2/scratches/temp.txt");
+                //does the reading of file from the file reader object
+                BufferedReader br = new BufferedReader(fr);
+
+                //reads line by line until reach null (end of file)
+                while((str = br.readLine()) != null){
+                    //parses on commas and stores in string array
+                    values = str.split(",");
+
+                    //tests for empty entered data points
+                    if(str.split(",") == null){
+                        recordsFailed = recordsFailed+1;
+                    }
+                    recordsReceived = recordsReceived+1;
+
+                }
+
+                br.close();
+            }catch (IOException e){
+                out.println("ERROR!");
+            }
+
+
+            /************ WRITE TO FILE **************/
+
+                //object of the file writer class, the new file to write to
+                FileWriter fw = new FileWriter("New.txt");
+                //print to the file that is going to be created and write to
+                PrintWriter pw = new PrintWriter(fw);
+
+                //going threw string array called values. one by one and writes to new txt file
+                for (String str1 : values) {
+                    pw.println(str1);
+                }
+
+                //left open, then file wont be written and left open, unreadable
+                pw.close();
+
+            //divided by 10 because thats the number of columns
+            int recordsSuccessful = (recordsReceived/10)-recordsFailed;
+            System.out.println("# of records received " + recordsReceived/10 + "\n" + "# of records successful" + recordsSuccessful+ "\n" + "# of records failed " + recordsFailed);
+
+        }
+    }
+
+
