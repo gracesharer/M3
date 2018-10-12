@@ -1,6 +1,5 @@
 /**** TO RUN********/
-On line 20 put the path to the file you would like to have read and parsed
-compile, run
+On line 20 put the path to the file you would like to have read. Then compile and run
 
 /**** Logic ********/
 // I parsed the file by commas as CSV file is a comma separated values file
